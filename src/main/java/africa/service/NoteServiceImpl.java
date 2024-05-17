@@ -90,7 +90,7 @@ public class NoteServiceImpl implements NoteService{
 
 
     @Override
-    public DeleteNoteResponse delete(DeleteNoteRequest deleteNoteRequest) {
+    public DeleteNoteResponse deleteNote(DeleteNoteRequest deleteNoteRequest) {
         Note note = findNoteById(deleteNoteRequest.getId());
         noteRepository.delete(note);
 

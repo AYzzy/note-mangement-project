@@ -133,7 +133,7 @@ class NoteServiceImplTest {
 
 
     @Test
-    void delete() {
+    void deleteNote() {
         CreateRequest createRequest = new CreateRequest();
         createRequest.setTitle("the jokes");
         createRequest.setBody("that's the best of all");
@@ -151,10 +151,10 @@ class NoteServiceImplTest {
 
         DeleteNoteRequest deleteNoteRequest = new DeleteNoteRequest();
         deleteNoteRequest.setId(createResponse3.getId());
-        DeleteNoteResponse deleteNoteResponse = service.delete(deleteNoteRequest);
+        DeleteNoteResponse deleteNoteResponse = service.deleteNote(deleteNoteRequest);
         System.out.println(deleteNoteResponse);
         deleteNoteRequest.setId(createResponse1.getId());
-        DeleteNoteResponse deleteNoteResponse2 = service.delete(deleteNoteRequest);
+        DeleteNoteResponse deleteNoteResponse2 = service.deleteNote(deleteNoteRequest);
         System.out.println(deleteNoteResponse2);
         assertEquals(1, noteRepository.count());
     }

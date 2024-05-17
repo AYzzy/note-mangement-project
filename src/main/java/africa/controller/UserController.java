@@ -105,10 +105,10 @@ public class UserController {
             return new ResponseEntity<>(new APIResponse(false, e.getMessage()), BAD_REQUEST);
         }
     }
-    @PostMapping("/delete")
-    public ResponseEntity<?> delete(@RequestBody DeleteNoteRequest deleteNoteRequest) {
+    @PostMapping("/deleteNote")
+    public ResponseEntity<?> deleteNote(@RequestBody DeleteNoteRequest deleteNoteRequest) {
         try {
-            DeleteNoteResponse response = noteService.delete(deleteNoteRequest);
+            DeleteNoteResponse response = noteService.deleteNote(deleteNoteRequest);
             return new ResponseEntity<>(new APIResponse(true, response), CREATED);
         } catch (ContactManagerException e) {
             return new ResponseEntity<>(new APIResponse(false, e.getMessage()), BAD_REQUEST);

@@ -16,5 +16,5 @@ public interface NoteService {
     List<Note> findByTitle(String title);
     List<Note> findAllNote();
     //    List<Note> deleteAllNote();
-    DeleteNoteResponse delete(DeleteNoteRequest deleteNoteRequest);
+    DeleteNoteResponse deleteNote(DeleteNoteRequest deleteNoteRequest);
 }
