@@ -1,5 +1,6 @@
 package africa.controller;
 
+import africa.data.model.Note;
 import africa.dto.Request.*;
 import africa.dto.Response.*;
 import africa.exception.ContactManagerException;
@@ -9,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+import static jdk.javadoc.internal.doclets.formats.html.markup.HtmlStyle.title;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -109,6 +113,15 @@ public class UserController {
     public ResponseEntity<?> deleteNote(@RequestBody DeleteNoteRequest deleteNoteRequest) {
         try {
             DeleteNoteResponse response = noteService.deleteNote(deleteNoteRequest);
+            return new ResponseEntity<>(new APIResponse(true, response), CREATED);
+        } catch (ContactManagerException e) {
+            return new ResponseEntity<>(new APIResponse(false, e.getMessage()), BAD_REQUEST);
+        }
+    }
+    @PostMapping("/findAllNote")
+    public ResponseEntity<?> findAllNote() {
+        try {
+            var response = noteService.findAllNote();
             return new ResponseEntity<>(new APIResponse(true, response), CREATED);
         } catch (ContactManagerException e) {
             return new ResponseEntity<>(new APIResponse(false, e.getMessage()), BAD_REQUEST);
