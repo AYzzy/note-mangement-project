@@ -8,6 +8,8 @@ import africa.exception.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static africa.dto.utility.Mapper.*;
+
 @Service
 public class UserServiceImpl implements UserService{
     @Autowired
@@ -23,10 +25,7 @@ public class UserServiceImpl implements UserService{
         user1.setPassword(registerUserRequest.getPassword());
         userRepository.save(user1);
 
-        RegisterResponse registerResponse = new RegisterResponse();
-        registerResponse.setUsername(registerUserRequest.getUsername());
-        registerResponse.setMessage("YOU ARE SUCCESSFULLY REGISTERED");
-        return registerResponse;
+        return mapRegisterResponse(user1);
     }
 
     private void alreadyExistingUser(String username) {
@@ -44,10 +43,7 @@ public class UserServiceImpl implements UserService{
         user.setIsLogin(true);
         userRepository.save(user);
 
-        LoginResponse loginResponse = new LoginResponse();
-        loginResponse.setUsername(loginResponse.getUsername());
-        loginResponse.setMessage("YOU HAVE SUCCESSFULLY LOGGED IN");
-        return loginResponse;
+        return mapLoginResponse(user);
     }
 
     @Override
@@ -57,10 +53,7 @@ public class UserServiceImpl implements UserService{
         user.setIsLogin(false);
         userRepository.save(user);
 
-        LogoutResponse logoutResponse = new LogoutResponse();
-        logoutResponse.setUsername(logoutResponse.getUsername());
-        logoutResponse.setMessage("LOGOUT SUCCESSFUL");
-        return logoutResponse;
+        return mapLogoutResponse(user);
     }
 
     @Override

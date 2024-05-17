@@ -1,6 +1,7 @@
 package africa.dto.utility;
 
 import africa.data.model.Note;
+import africa.data.model.User;
 import africa.dto.Request.DeleteNoteRequest;
 import africa.dto.Request.EditRequest;
 import africa.dto.Request.LockRequest;
@@ -41,5 +42,23 @@ public class Mapper {
         deleteNoteResponse.setId(note.getId());
         deleteNoteResponse.setMessage("NOTE SUCCESSFULLY DELETED");
         return deleteNoteResponse;
+    }
+    public  static RegisterResponse mapRegisterResponse(User user){
+        RegisterResponse registerResponse = new RegisterResponse();
+        registerResponse.setUsername(user.getUsername());
+        registerResponse.setMessage("YOU ARE SUCCESSFULLY REGISTERED");
+        return registerResponse;
+    }
+    public  static LoginResponse mapLoginResponse(User user){
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setUsername(user.getUsername());
+        loginResponse.setMessage("YOU HAVE SUCCESSFULLY LOGGED IN");
+        return loginResponse;
+    }
+    public static LogoutResponse mapLogoutResponse(User user){
+        LogoutResponse logoutResponse = new LogoutResponse();
+        logoutResponse.setUsername(user.getUsername());
+        logoutResponse.setMessage("LOGOUT SUCCESSFUL");
+        return logoutResponse;
     }
 }
