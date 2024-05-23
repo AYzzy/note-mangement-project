@@ -10,4 +10,5 @@ public interface UserService {
     LogoutResponse logout(LogoutUserRequest logoutUserRequest);
     UpdateResponse update(UpdateUserRequest updateUserRequest);
     DeleteResponse delete(DeleteUserRequest deleteUserRequest);
+    userNotesResponse FindAllNoteByUser(UserNoteRequest userNoteRequest);
 }

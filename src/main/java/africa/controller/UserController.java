@@ -9,14 +9,9 @@ import africa.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
-import static jdk.javadoc.internal.doclets.formats.html.markup.HtmlStyle.title;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.CREATED;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/notes")
 public class UserController {
@@ -64,7 +59,7 @@ public class UserController {
             return new ResponseEntity<>(new APIResponse(false, e.getMessage()), BAD_REQUEST);
         }
     }
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public ResponseEntity<?> delete(@RequestBody DeleteUserRequest deleteUserRequest) {
         try {
             DeleteResponse response = userService.delete(deleteUserRequest);
@@ -109,7 +104,7 @@ public class UserController {
             return new ResponseEntity<>(new APIResponse(false, e.getMessage()), BAD_REQUEST);
         }
     }
-    @PostMapping("/deleteNote")
+    @DeleteMapping("/deleteNote")
     public ResponseEntity<?> deleteNote(@RequestBody DeleteNoteRequest deleteNoteRequest) {
         try {
             DeleteNoteResponse response = noteService.deleteNote(deleteNoteRequest);

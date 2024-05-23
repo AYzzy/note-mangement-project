@@ -18,18 +18,20 @@ public class UserServiceImpl implements UserService{
     @Override
     public RegisterResponse register(RegisterUserRequest registerUserRequest) {
         alreadyExistingUser(registerUserRequest.getUsername().toLowerCase());
-        User user1= new User();
-        user1.setUsername(registerUserRequest.getUsername());
-        user1.setFirstName(registerUserRequest.getFirstName());
-        user1.setLastName(registerUserRequest.getLastName());
-        user1.setPassword(registerUserRequest.getPassword());
-        userRepository.save(user1);
+        User user= new User();
+        user.setUsername(registerUserRequest.getUsername());
+        user.setFirstName(registerUserRequest.getFirstName());
+        user.setLastName(registerUserRequest.getLastName());
+        user.setPassword(registerUserRequest.getPassword());
+        userRepository.save(user);
 
-        return mapRegisterResponse(user1);
+        return mapRegisterResponse(registerUserRequest);
     }
 
     private void alreadyExistingUser(String username) {
-        userRepository.findAll().forEach(user -> {if (user.getUsername().equals(username))throw new UsernameAlreadyExist("Already existing user...");});
+        userRepository.findAll().forEach(user -> {if (user.getUsername().equals(username.toLowerCase()))
+            throw new UsernameAlreadyExist("Already existing user...");
+        });
     }
 
     @Override
@@ -43,24 +45,24 @@ public class UserServiceImpl implements UserService{
         user.setIsLogin(true);
         userRepository.save(user);
 
-        return mapLoginResponse(user);
+        return mapLoginResponse(loginUserRequest);
     }
 
     @Override
     public LogoutResponse logout(LogoutUserRequest logoutUserRequest) {
         User user = userRepository.findByUsername(logoutUserRequest.getUsername().toLowerCase());
-        user.setUsername(logoutUserRequest.getUsername());
+        user.setUsername(logoutUserRequest.getUsername().toLowerCase());
         user.setIsLogin(false);
         userRepository.save(user);
 
-        return mapLogoutResponse(user);
+        return mapLogoutResponse(logoutUserRequest);
     }
 
     @Override
     public UpdateResponse update(UpdateUserRequest updateUserRequest) {
         User user = userRepository.findByUsername(updateUserRequest.getUsername().toLowerCase());
 
-        user.setUsername(updateUserRequest.getNewUsername());
+        user.setUsername(updateUserRequest.getNewUsername().toLowerCase());
         user.setPassword(updateUserRequest.getNewPassword());
         userRepository.save(user);
 
@@ -74,6 +76,8 @@ public class UserServiceImpl implements UserService{
     @Override
     public DeleteResponse delete(DeleteUserRequest deleteUserRequest) {
         User user = findByUsername(deleteUserRequest.getUsername().toLowerCase());
+        if(!user.getUsername().equals(deleteUserRequest.getUsername().toLowerCase())) throw new UserDoseNotExist("user not found");
+        user.setUsername(deleteUserRequest.getUsername().toLowerCase());
         userRepository.delete(user);
         DeleteUserRequest deleteUserRequest1 = new DeleteUserRequest();
         user.setUsername(deleteUserRequest1.getUsername());
@@ -83,9 +87,16 @@ public class UserServiceImpl implements UserService{
         return deleteResponse;
     }
 
+    @Override
+    public userNotesResponse FindAllNoteByUser(UserNoteRequest userNoteRequest) {
+
+        return null;
+    }
+
     private User findByUsername(String username) {
         User user = userRepository.findByUsername(username);
         if(user == null)throw new UserDoseNotExist("User Doesn't Exist");
         return user;
+
     }
 }

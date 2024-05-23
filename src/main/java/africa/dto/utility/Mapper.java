@@ -2,10 +2,7 @@ package africa.dto.utility;
 
 import africa.data.model.Note;
 import africa.data.model.User;
-import africa.dto.Request.DeleteNoteRequest;
-import africa.dto.Request.EditRequest;
-import africa.dto.Request.LockRequest;
-import africa.dto.Request.UnlockedRequest;
+import africa.dto.Request.*;
 import africa.dto.Response.*;
 
 public class Mapper {
@@ -20,7 +17,6 @@ public class Mapper {
     }
     public static EditResponse mapEditResponse(Note note){
         EditResponse editResponse = new EditResponse();
-        editResponse.setId(note.getId());
         editResponse.setMessage("NOTE EDITED");
         return editResponse;
     }
@@ -32,32 +28,31 @@ public class Mapper {
     }
     public static UnlockResponse mapUnlockResponse(Note note){
         UnlockResponse unlockResponse = new UnlockResponse();
-        unlockResponse.setId(note.getId());
         unlockResponse.setTitle(note.getTitle());
         unlockResponse.setMessage("NOTE IS SUCCESSFULLY UNLOCKED");
         return unlockResponse;
     }
     public static DeleteNoteResponse mapDeleteNoteResponse(Note note){
         DeleteNoteResponse deleteNoteResponse = new DeleteNoteResponse();
-        deleteNoteResponse.setId(note.getId());
         deleteNoteResponse.setMessage("NOTE SUCCESSFULLY DELETED");
         return deleteNoteResponse;
     }
-    public  static RegisterResponse mapRegisterResponse(User user){
+    public static RegisterResponse mapRegisterResponse(RegisterUserRequest registerUserRequest){
         RegisterResponse registerResponse = new RegisterResponse();
-        registerResponse.setUsername(user.getUsername());
+        registerResponse.setId(registerUserRequest.getId());
+        registerResponse.setUsername(registerUserRequest.getUsername());
         registerResponse.setMessage("YOU ARE SUCCESSFULLY REGISTERED");
         return registerResponse;
     }
-    public  static LoginResponse mapLoginResponse(User user){
+    public  static LoginResponse mapLoginResponse(LoginUserRequest loginUserRequest){
         LoginResponse loginResponse = new LoginResponse();
-        loginResponse.setUsername(user.getUsername());
+        loginResponse.setUsername(loginUserRequest.getUsername());
         loginResponse.setMessage("YOU HAVE SUCCESSFULLY LOGGED IN");
         return loginResponse;
     }
-    public static LogoutResponse mapLogoutResponse(User user){
+    public static LogoutResponse mapLogoutResponse(LogoutUserRequest logoutUserRequest){
         LogoutResponse logoutResponse = new LogoutResponse();
-        logoutResponse.setUsername(user.getUsername());
+        logoutResponse.setUsername(logoutUserRequest.getUsername());
         logoutResponse.setMessage("LOGOUT SUCCESSFUL");
         return logoutResponse;
     }
