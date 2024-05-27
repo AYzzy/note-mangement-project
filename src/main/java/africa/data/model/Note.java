@@ -2,7 +2,9 @@ package africa.data.model;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document("Note")
 @Data
 public class Note {
     @Id
@@ -12,6 +14,8 @@ public class Note {
     private String body;
     private String password;
     private boolean isLocked;
+    private String username;
+
 
 }
 

@@ -9,6 +9,9 @@ import africa.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -113,7 +116,7 @@ public class UserController {
             return new ResponseEntity<>(new APIResponse(false, e.getMessage()), BAD_REQUEST);
         }
     }
-    @PostMapping("/findAllNote")
+    @GetMapping("/findAllNote")
     public ResponseEntity<?> findAllNote() {
         try {
             var response = noteService.findAllNote();
@@ -123,5 +126,14 @@ public class UserController {
         }
     }
 
+    @GetMapping("/findAllNoteByUsername{username}")
+    public ResponseEntity<?> findAllNoteByUsername(@PathVariable("username") String username) {
+        try{
+            var response = userService.getUserNotes(username);
+            return new ResponseEntity<>(new APIResponse(true, response), CREATED);
+        }catch (ContactManagerException e) {
+            return new ResponseEntity<>(new APIResponse(false, e.getMessage()), BAD_REQUEST);
+        }
+    }
 
 }

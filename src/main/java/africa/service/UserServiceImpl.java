@@ -1,6 +1,8 @@
 package africa.service;
 
+import africa.data.model.Note;
 import africa.data.model.User;
+import africa.data.repository.NoteRepository;
 import africa.data.repository.UserRepository;
 import africa.dto.Request.*;
 import africa.dto.Response.*;
@@ -8,12 +10,17 @@ import africa.exception.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static africa.dto.utility.Mapper.*;
 
 @Service
 public class UserServiceImpl implements UserService{
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    NoteRepository noteRepository;
+
 
     @Override
     public RegisterResponse register(RegisterUserRequest registerUserRequest) {
@@ -88,15 +95,20 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public userNotesResponse FindAllNoteByUser(UserNoteRequest userNoteRequest) {
+    public List<Note> getUserNotes(String username) {
+        User user = findByUsername(username);
+        user.setUsername(username);
+        userRepository.save(user);
 
-        return null;
+        return noteRepository.getNotesByUsernameIgnoreCase(username);
+
     }
+
+
 
     private User findByUsername(String username) {
         User user = userRepository.findByUsername(username);
         if(user == null)throw new UserDoseNotExist("User Doesn't Exist");
         return user;
-
     }
 }

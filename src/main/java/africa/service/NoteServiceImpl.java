@@ -2,6 +2,7 @@ package africa.service;
 
 import africa.data.model.Note;
 import africa.data.repository.NoteRepository;
+import africa.data.repository.UserRepository;
 import africa.dto.Request.*;
 import africa.dto.Response.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import static africa.dto.utility.Mapper.*;
 public class NoteServiceImpl implements NoteService{
     @Autowired
     NoteRepository noteRepository;
+    @Autowired
+    UserRepository userRepository;
 
     @Override
     public CreateResponse create(CreateRequest createRequest) {
@@ -87,6 +90,8 @@ public class NoteServiceImpl implements NoteService{
     public List<Note> findAllNote() {
         return noteRepository.findAll();
     }
+
+
 
 
     @Override

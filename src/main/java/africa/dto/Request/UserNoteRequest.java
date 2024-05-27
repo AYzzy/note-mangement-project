@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class UserNoteRequest {
-    private String id;
+    private String username;
 }

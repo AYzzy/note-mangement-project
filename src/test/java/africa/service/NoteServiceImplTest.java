@@ -16,6 +16,7 @@ class NoteServiceImplTest {
     NoteService service;
     @Autowired
     private NoteRepository noteRepository;
+    @Autowired
     private UserRepository userRepository;
 
 
@@ -158,4 +159,6 @@ class NoteServiceImplTest {
         System.out.println(deleteNoteResponse2);
         assertEquals(1, noteRepository.count());
     }
+
+
 }

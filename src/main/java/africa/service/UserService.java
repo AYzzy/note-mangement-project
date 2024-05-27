@@ -1,7 +1,11 @@
 package africa.service;
 
+import africa.data.model.Note;
+import africa.data.model.User;
 import africa.dto.Request.*;
 import africa.dto.Response.*;
+
+import java.util.List;
 
 
 public interface UserService {
@@ -10,5 +14,5 @@ public interface UserService {
     LogoutResponse logout(LogoutUserRequest logoutUserRequest);
     UpdateResponse update(UpdateUserRequest updateUserRequest);
     DeleteResponse delete(DeleteUserRequest deleteUserRequest);
-    userNotesResponse FindAllNoteByUser(UserNoteRequest userNoteRequest);
+    List<Note> getUserNotes(String username);
 }
